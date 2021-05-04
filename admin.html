@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>QuintessaTrip</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="flightmanager.js"></script>
+</head>
+<body>
+    <h1>Welcome to Quintessa Trip</h1>
+    <h1>Flight Booking Status.</h1>
+    <table>
+        <tr>
+            <th>Flight ID</th>
+            <th>Booking Date</th>
+            <th>Confirmation</th>
+          </tr>
+          <tr>
+            <td id="flightName"></td>
+            <td id="bookingDate"></td>
+            <td id='ticketConfirmation'></td>
+          </tr>
+    </table>
+    <script>
+        let flightId = 'GA850';
+        FlightManager.addFlight(flightId);
+        let flights = FlightManager.getAllFlights();
+        let bookingDate = FlightManager.bookingDate();
+        let status = FlightManager.updateTicketStatus(flightId);
+        document.getElementById('flightName').innerHTML = flights;
+        document.getElementById('bookingDate').innerHTML = bookingDate;
+        document.getElementById('ticketConfirmation').innerHTML = status;
+    </script>
+</body>
+</html>
