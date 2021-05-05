@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Price Estimator !</title>
+    <script src="PriceCalculator.js"></script>
+    <script src="AgeCalculator.js"></script>
+</head>
+
+<body>
+    <h1>Price Estimator !</h1>
+    <form action="">
+        <label for="name">Name :</label>
+        <br>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="dateOfBirth">Date of Birth :</label>
+        <br>
+        <input type="text" id="dateOfBirth" name="dateOfBirth" placeholder="dd/mm/yyyy" required>
+        <br>
+        <label for="gender">Gender :</label>
+        <br>
+        <input type="text" id="gender" name="gender" required>
+        <br>
+        <br>
+        <button type="submit" id="submitButton">submit</button>
+    </form>
+    <p>Estimated Ticket Price :
+        <span id="price"></span>
+    </p>
+    <script>
+        let submitButton = document.getElementById('submitButton');
+        let name = document.getElementById('name');
+        let dateOfBirth = document.getElementById('dateOfBirth');
+        let gender = document.getElementById('gender');
+
+        submitButton.addEventListener("click", function () { //event listener for a button.
+            event.preventDefault();
+
+            let passengerName = name.value;
+            let passengerDob = dateOfBirth.value;
+            let passengerGender = gender.value;
+
+            localStorage.setItem("Name", JSON.stringify(passengerName));
+            localStorage.setItem("DateOfBirth", JSON.stringify(passengerDob));
+            localStorage.setItem("Gender", JSON.stringify(passengerGender));
+
+            let dob = JSON.parse(localStorage.getItem("DateOfBirth"));
+            let age = AgeCalculator.calculateAge(dob);
+            let fare = JSON.parse(localStorage.getItem("FlightFare"));
+            let calculatedPrice = PriceCalculator.calculatePrice(age, fare);
+
+            document.getElementById('price').innerHTML = calculatedPrice;
+        });
+    </script>
+</body>
+
+</html>
