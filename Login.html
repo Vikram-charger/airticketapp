@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Page</title>
+    <script src="UserValidator.js"></script>
+    <script src="PasswordValidator.js"></script>
+</head>
+
+<body>
+    <form action="">
+        <label for="username">Username</label>
+        <br>
+        <input type="text" placeholder="Enter username" name="username" id="username">
+        <br>
+        <label for="password">Password</label>
+        <br>
+        <input type="password" placeholder="Enter password" name="password" id="password">
+        <br>
+        <button type="submit" id="submitButton">Submit</button>
+    </form>
+    <script>
+        let submit = document.getElementById('submitButton');
+
+        submit.addEventListener("click", function () {
+            event.preventDefault();
+
+            //getting values from the form fields.
+            let userName = document.getElementById('username').value;
+            let passWord = document.getElementById('password').value;
+
+            //validating username and password.
+            let isUserNameValidated = UserValidator.validateUser(userName);
+            let isPassWordValidated = PasswordValidator.validatePassword(passWord);
+
+            //checking both user name and password is validated.
+            if (isUserNameValidated && isPassWordValidated) {
+                alert("Successfully Logged in.");
+            }
+        });
+    </script>
+</body>
+
+</html>
