@@ -8,52 +8,66 @@
     <title>Price Estimator !</title>
     <script src="PriceCalculator.js"></script>
     <script src="AgeCalculator.js"></script>
+    <script src="Validator.js"></script>
 </head>
 
 <body>
     <h1>Price Estimator !</h1>
-    <form action="">
+    <form action="" id="myForm">
         <label for="name">Name :</label>
         <br>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="name" name="name">
         <br>
         <label for="dateOfBirth">Date of Birth :</label>
         <br>
-        <input type="text" id="dateOfBirth" name="dateOfBirth" placeholder="dd/mm/yyyy" required>
+        <input type="date" id="dateOfBirth" name="dateOfBirth" required>
         <br>
         <label for="gender">Gender :</label>
         <br>
-        <input type="text" id="gender" name="gender" required>
-        <br>
-        <br>
-        <button type="submit" id="submitButton">submit</button>
+        <input type="radio" id="male" name="gender" value="male">
+        <label for="male">Male</label>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Female</label>
+        <input type="radio" id="other" name="gender" value="other">
+        <label for="other">Other</label>
+        <button id="submitButton" value="submit">submit</button>
     </form>
     <p>Estimated Ticket Price :
         <span id="price"></span>
     </p>
     <script>
         let submitButton = document.getElementById('submitButton');
-        let name = document.getElementById('name');
-        let dateOfBirth = document.getElementById('dateOfBirth');
-        let gender = document.getElementById('gender');
 
-        submitButton.addEventListener("click", function () { //event listener for a button.
+        submitButton.addEventListener("click", function () { //click eventlistener to the button.
             event.preventDefault();
+            let name = document.getElementById('name').value;
+            let dateOfBirth = document.getElementById('dateOfBirth').value;
+            let gender = document.querySelector('input[name="gender"]:checked');
+            
+            //validation happens.
+            let nameIsValid = Validator.validateName(name);
+            let dobIsValid = Validator.validateDOB(dateOfBirth);
+            let genderIsValid = Validator.validateGender(gender);
 
-            let passengerName = name.value;
-            let passengerDob = dateOfBirth.value;
-            let passengerGender = gender.value;
+            //do process only validation successfull.
+            if (nameIsValid && dobIsValid && genderIsValid) {
 
-            localStorage.setItem("Name", JSON.stringify(passengerName));
-            localStorage.setItem("DateOfBirth", JSON.stringify(passengerDob));
-            localStorage.setItem("Gender", JSON.stringify(passengerGender));
+                //setting all the data from the form input fields to local storage.
+                localStorage.setItem("Name", JSON.stringify(name));
+                localStorage.setItem("DateOfBirth", JSON.stringify(dateOfBirth));
+                localStorage.setItem("Gender", JSON.stringify(gender.value));
 
-            let dob = JSON.parse(localStorage.getItem("DateOfBirth"));
-            let age = AgeCalculator.calculateAge(dob);
-            let fare = JSON.parse(localStorage.getItem("FlightFare"));
-            let calculatedPrice = PriceCalculator.calculatePrice(age, fare);
+                //calculating age.
+                let passengerDOB = JSON.parse(localStorage.getItem("DateOfBirth"));
+                let age = AgeCalculator.calculateAge(passengerDOB);
 
-            document.getElementById('price').innerHTML = calculatedPrice;
+                //calculating price.
+                let fare = JSON.parse(localStorage.getItem("FlightFare"));
+                let calculatedPrice = PriceCalculator.calculatePrice(age, fare);
+
+                //Displaying the price in html tag.
+                document.getElementById('price').innerHTML = calculatedPrice;
+            }
         });
     </script>
 </body>

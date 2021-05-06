@@ -47,12 +47,14 @@
         let bookButton1 = document.getElementById('bookButton1');
         let bookButton2 = document.getElementById('bookButton2');
 
+        //Button event listener for booking button 1.
         bookButton1.addEventListener("click", function () {
             localStorage.setItem("FlightID", JSON.stringify(flightIds.id1));
             localStorage.setItem("FlightFare", JSON.stringify(flightFares.flightFare1));
             window.location.assign('PriceEstimation.html');
         });
 
+        //Button event listener for booking button2.
         bookButton2.addEventListener("click", function () {
             localStorage.setItem("FlightID", JSON.stringify(flightIds.id2));
             localStorage.setItem("FlightFare", JSON.stringify(flightFares.flightFare2));
