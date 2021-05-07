@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up page</title>
+    <script src="Validator.js"></script>
+    <script src="UserValidator.js"></script>
+    <script src="PasswordValidator.js"></script>
+</head>
+
+<body>
+    <form action="">
+        <label for="name">Name</label>
+        <br>
+        <input type="text" placeholder="Enter name" name="name" id="name">
+        <br>
+        <label for="email">Email Id</label>
+        <br>
+        <input type="email" name="email" id="email">
+        <br>
+        <label for="mobileNo">Mobile Number</label>
+        <br>
+        <input type="number" name="mobileNo" id="mobileNo">
+        <br>
+        <label for="username">Username</label>
+        <br>
+        <input type="text" placeholder="Enter username" name="username" id="username">
+        <br>
+        <label for="password">Password</label>
+        <br>
+        <input type="password" placeholder="Enter password" name="password" id="password">
+        <br>
+        <br>
+        <button type="submit" id="signupButton">SignUp</button>
+    </form>
+    <script>
+        let signupButton = document.getElementById('signupButton');
+
+        signupButton.addEventListener("click", function () {
+            event.preventDefault();
+            let name = document.getElementById('name').value;
+            let email = document.getElementById('email').value;
+            let mobileNo = document.getElementById('mobileNo').value;
+            let username = document.getElementById('username').value;
+            let password = document.getElementById('password').value;
+
+            let isNameValidated = Validator.validateName(name);
+            let isEmailValidated = Validator.validateEmail(email);
+            let isMobileNoValidated = Validator.validateMobileNo(mobileNo);
+            let isUsernameValidated = UserValidator.validateUser(username);
+            let isPasswordValidated = PasswordValidator.validatePassword(password);
+
+            if (isNameValidated && isEmailValidated && isMobileNoValidated && isUsernameValidated && isPasswordValidated) {
+                alert("Signed up successfully.");
+                localStorage.setItem("SignedUpUser", JSON.stringify([name, email, mobileNo, username, password]));
+                window.location.assign('Login.html');
+            }
+        });
+    </script>
+</body>
+
+</html>
