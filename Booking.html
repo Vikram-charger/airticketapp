@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Flights Schedule</title>
-
+    <script src="StorageManager.js"></script>
 </head>
 
 <body>
@@ -49,16 +49,16 @@
 
         //Button event listener for booking button 1.
         bookButton1.addEventListener("click", function () {
-            localStorage.setItem("FlightID", JSON.stringify(flightIds.id1));
-            localStorage.setItem("FlightFare", JSON.stringify(flightFares.flightFare1));
-            window.location.assign('PriceEstimation.html');
+            StorageManager.saveToStorage("FlightID", flightIds.id1);
+            StorageManager.saveToStorage("FlightFare", flightFares.flightFare1);
+            window.location.assign('BookingPage.html');
         });
 
         //Button event listener for booking button2.
         bookButton2.addEventListener("click", function () {
-            localStorage.setItem("FlightID", JSON.stringify(flightIds.id2));
-            localStorage.setItem("FlightFare", JSON.stringify(flightFares.flightFare2));
-            window.location.assign('PriceEstimation.html');
+            StorageManager.saveToStorage("FlightID", flightIds.id2);
+            StorageManager.saveToStorage("FlightFare", flightFares.flightFare2);
+            window.location.assign('BookingPage.html');
         });
     </script>
 </body>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Main Booking Page</title>
+    <script src="StorageManager.js"></script>
+    <script src="PriceEstimator.js"></script>
+</head>
+
+<body>
+    <form action="" id="myForm">
+        <label for="flightid">Flight Id</label>
+        <input type="text" name="flightid" id="flightid">
+        <br>
+        <br>
+        <label for="mySelect">No of Tickets:</label>
+        <select name="mySelect" id="mySelect">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <br>
+        <br>
+        <label for="seatType">Seat Type :</label>
+        <br>
+        <input type="radio" id="seatType" name="seatType" value="Economy">
+        <label for="economy">Economy</label>
+        <input type="radio" id="seatType" name="seatType" value="Business">
+        <label for="business">Business</label>
+        <br>
+        <br>
+        <label for="noOfAdults">Adults(13+ years) :</label>
+        <input type="number" name="noOfAdults" id="noOfAdults" value="0">
+        <br>
+        <br>
+        <label for="noOfChildren">Children(2-13 years) :</label>
+        <input type="number" name="noOfChildren" id="noOfChildren" value="0">
+        <br>
+        <br>
+        <label for="noOfInfants">Infants(under 2) :</label>
+        <input type="number" name="noOfInfants" id="noOfInfants" value="0">
+        <br>
+        <br>
+        <button id="bookButton" value="submit">Book</button>
+    </form>
+    <p>Estimated total fare is :</p>
+    <span id="fare"></span>
+    <script>
+        let bookButton = document.getElementById('bookButton');
+        let flightId = StorageManager.getFromStorage('FlightID');
+
+        bookButton.addEventListener("click", function () {
+            event.preventDefault();
+            let noOfTickets = document.getElementById('mySelect').value;
+            let adultsValue = document.getElementById('noOfAdults').value;
+            let childrenValue = document.getElementById('noOfChildren').value;
+            let infantValue = document.getElementById('noOfInfants').value;
+
+            let adultsCount = JSON.parse(adultsValue);
+            let childrenCount = JSON.parse(childrenValue);
+            let infantCount = JSON.parse(infantValue);
+
+            console.log(adultsCount, childrenCount, infantCount);
+            let totalCount = adultsCount + childrenCount + infantCount;
+            let seatType = document.querySelector('input[name="seatType"]:checked').value;
+
+            if (totalCount == noOfTickets) {
+                let adultPrice = PriceEstimator.estimatedPriceForAdults(adultsCount, seatType);
+                let childrenPrice = PriceEstimator.estimatedPriceForChildren(childrenCount, seatType);
+                let infantPrice = PriceEstimator.estimatedPriceForInfants(infantCount, seatType);
+                let calculatedPrice = PriceEstimator.calculatePrice(JSON.parse(adultPrice), JSON.parse(childrenPrice), JSON.parse(infantPrice));
+                document.getElementById("fare").innerHTML = calculatedPrice;
+                console.log(JSON.parse(calculatedPrice));
+            }
+            else {
+                alert("Ticket count not matching");
+            }
+        });
+        document.getElementById('flightid').value = flightId;
+    </script>
+</body>
+
+</html>
