@@ -6,7 +6,7 @@ class AgeCalculator {
      */
     static calculateAge(dateOfBirth) {
         let birthYear = parseInt(dateOfBirth.substr(0, 4)); //substr() used to cut the string from one index to another.
-        let currentYear = AgeCalculator.getCurrentYear();
+        let currentYear = this.getCurrentYear();
         return currentYear - birthYear;
     }
 

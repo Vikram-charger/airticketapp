@@ -4,7 +4,7 @@ class PasswordValidator {
      * @param {string} passWord 
      */
     static validatePassword(passWord) {
-        //Regular expression for pattern matching.
+        //Regular expression for pattern matching only 8-15 characters allowed with atleast one lowercase letter and one uppercase letter.
         let passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
 
         //password field should not be empty.

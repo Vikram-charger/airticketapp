@@ -38,16 +38,16 @@
             event.preventDefault();
 
             //getting values from the form fields.
-            let userName = document.getElementById('username').value;
-            let passWord = document.getElementById('password').value;
+            let username = document.getElementById('username').value;
+            let password = document.getElementById('password').value;
 
             //validating username and password.
-            let isUserNameValidated = UserValidator.validateUser(userName);
-            let isPassWordValidated = PasswordValidator.validatePassword(passWord);
-            let isUserExists = Validator.isUserExists(userName, passWord);
+            let isUsernameValidated = UserValidator.validateUser(username);
+            let isPasswordValidated = PasswordValidator.validatePassword(password);
+            let isUserExists = Validator.isUserExists(username, password);
 
             //checking both user name and password is validated.
-            if (isUserNameValidated && isPassWordValidated) {
+            if (isUsernameValidated && isPasswordValidated) {
                 if (isUserExists) { //checking whether the username is registered or not.
                     window.location.assign("Booking.html");
                     alert("Successfully Logged in.");

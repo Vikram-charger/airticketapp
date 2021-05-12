@@ -17,7 +17,7 @@ class Validator {
      * @param {string} dob 
      */
     static validateDOB(dob) {
-        var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/;
+        var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/; //date with yyyy-mm-dd
         if (dob == null || dob == "" || !pattern.test(dob)) {
             alert("Invalid date of birth");
             return false;
@@ -46,6 +46,7 @@ class Validator {
      * @param {string} email 
      */
     static validateEmail(email) {
+        //email can have a-z or A-Z or 0-9 with @ a-z or A-Z or 0-9
         let pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
         if (email == null || email == "" || !pattern.test(email)) {
             alert("Invalid email id");
@@ -61,7 +62,7 @@ class Validator {
      * @param {number} mobileNo 
      */
     static validateMobileNo(mobileNo) {
-        let pattern = /^\d{10}$/;
+        let pattern = /^\d{10}$/; // mobile no with 10 digits.
         if (mobileNo == null || mobileNo == "" || !pattern.test(mobileNo)) {
             alert("Invalid mobile number");
             return false;
